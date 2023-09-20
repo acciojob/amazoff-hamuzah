@@ -12,16 +12,18 @@ public class Order {
 
         // The deliveryTime has to converted from string to int and then stored in the attribute
         //deliveryTime  = HH*60 + MM
-        this.deliveryTime = delivery(deliveryTime);
+        this.id = id;
+        this.deliveryTime = Integer.parseInt(deliveryTime.substring(0,2))*60+Integer.parseInt(deliveryTime.substring(3,5));
+       // this.deliveryTime = delivery(deliveryTime);
     }
 
-    private int delivery(String deliveryTime) {
-        List<String> list = Arrays.asList(deliveryTime.split(":"));
-        int HH = Integer.parseInt(list.get(0));
-        int MM = Integer.parseInt(list.get(1));
-
-        return HH * 60 + MM;
-    }
+//    private int delivery(String deliveryTime) {
+//        List<String> list = Arrays.asList(deliveryTime.split(":"));
+//        int HH = Integer.parseInt(list.get(0));
+//        int MM = Integer.parseInt(list.get(1));
+//
+//        return HH * 60 + MM;
+//    }
 
 
     public String getId() {
@@ -30,7 +32,7 @@ public class Order {
 
     public int getDeliveryTime() {return deliveryTime;}
 
-    public void setDeliveryTime(int deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
+//    public void setDeliveryTime(int deliveryTime) {
+//        this.deliveryTime = deliveryTime;
+//    }
 }

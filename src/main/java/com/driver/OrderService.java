@@ -53,33 +53,25 @@ public class OrderService {
         return count;
     }
 
-    public int getOrdersLeftAfterGivenTimeByPartnerId(String time, String partnerId) {
-        String[]arr = time.split(":");
-        int hh = Integer.parseInt(arr[0]);
-        int mm = Integer.parseInt(arr[1]);
-
-        int timint = (hh*60) + mm;
-
-        Integer timeint = (hh*60) + mm;
-        int count = orderRepository.getOrdersLeftAfterGivenTimeByPartnerId(timeint,partnerId);
-        return count;
+    public int getOrdersLeftAfterGivenTimeByPartnerId(String deliveryTime, String partnerId) {
+        String time[] = deliveryTime.split(":");
+        int newTime = Integer.parseInt(time[0])*60 + Integer.parseInt(time[1]);
+        return orderRepository.getOrdersLeftAfterGivenTimeByPartnerId(newTime,partnerId);
     }
 
     public String getLastDeliveryTimeByPartnerId(String partnerId) {
-        int timeInt = orderRepository.getLastDeliveryTimeByPartnerId(partnerId);
-        int hh = timeInt/60;
-        int mm = timeInt%60;
-        String HH = String.valueOf(hh);
-        if(HH.length()==1){
-            HH = '0' + HH;
+        int time = orderRepository.getLastDeliveryTimeByPartnerId(partnerId);
+        String HH = String.valueOf(time/60);
+        String MM = String.valueOf(time%60);
+
+        if(HH.length()<2){
+            HH="0"+HH;
         }
-        String MM = String.valueOf(mm);
-        if(MM.length()==1){
-            MM = '0'+MM;
+        if(MM.length()<2){
+            MM ="0"+MM;
         }
 
-        String time = HH + ":" + MM;
-        return time;
+        return HH+":"+MM;
     }
 
     public void deletePartnerById(String partnerId) {
