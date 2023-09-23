@@ -47,9 +47,16 @@ public class OrderController {
 
         Order order= null;
         //order should be returned with an orderId.
-        order = orderService.getOrderById(orderId);
+        
+        if(order == null) {
+            ResponseEntity<T> orderIdNotFound = new ResponseEntity<>("order id not found", HttpStatus.NOT_FOUND);
+            return orderIdNotFound;
+        } else {
+            order = orderService.getOrderById(orderId);
+            return new ResponseEntity<>(order, HttpStatus.CREATED); 
+        }
 
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
+       
     }
 
     @GetMapping("/get-partner-by-id/{partnerId}")
